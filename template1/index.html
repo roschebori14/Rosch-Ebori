@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="assets/fontawesome/css/all.min.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23ff0000'/><path d='M70 35L40 55l30 20V35z' fill='white'/></svg>" type="image/svg+xml">
+    <title>RG Tube</title>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage-compat.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <i class="fa fa-bars bars" id="menuToggle"></i>
+
+            <div class="logo" onclick="navigateTo('home')">
+                <i class="fa-brands fa-youtube" style="color: #ff0000;"></i>
+                <span>RG Tube</span>
+            </div>
+            
+            <div class="search-container">
+                <input type="text" class="search" placeholder="Search" id="searchInput">
+                <button class="search-btn" onclick="performSearch()">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="links">
+                <button class="navbtn" id="createBtn" onclick="handleCreateClick()">
+                    <i class="fa fa-plus"></i>
+                    <span>Create</span>
+                </button>
+                <i class="fa fa-bell navlinks notification-icon" onclick="showNotifications()"></i>
+                <div class="user-avatar" id="userAvatar" onclick="handleUserAvatarClick()">R</div>
+            </div>
+        </nav>
+        
+        <div class="category-bar">
+            <button class="category-arrow left-arrow" id="scrollLeft">
+                <i class="fa fa-chevron-left"></i>
+            </button>
+            <div class="categories-container" id="categoriesContainer">
+                <button class="category-btn active" data-category="all" onclick="filterByCategory('all')">All</button>
+                <button class="category-btn" data-category="music" onclick="filterByCategory('music')">Music</button>
+                <button class="category-btn" data-category="gaming" onclick="filterByCategory('gaming')">Gaming</button>
+                <button class="category-btn" data-category="live" onclick="filterByCategory('live')">Live</button>
+                <button class="category-btn" data-category="coding" onclick="filterByCategory('coding')">Coding</button>
+                <button class="category-btn" data-category="tutorials" onclick="filterByCategory('tutorials')">Tutorials</button>
+                <button class="category-btn" data-category="news" onclick="filterByCategory('news')">News</button>
+                <button class="category-btn" data-category="sports" onclick="filterByCategory('sports')">Sports</button>
+                <button class="category-btn" data-category="movies" onclick="filterByCategory('movies')">Movies</button>
+                <button class="category-btn" data-category="comedy" onclick="filterByCategory('comedy')">Comedy</button>
+                <button class="category-btn" data-category="education" onclick="filterByCategory('education')">Education</button>
+            </div>
+            <button class="category-arrow right-arrow" id="scrollRight">
+                <i class="fa fa-chevron-right"></i>
+            </button>
+        </div>
+    </header>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-section">
+            <a href="#" class="sidebar-item active" onclick="navigateTo('home'); return false;">
+                <i class="fa fa-home"></i>
+                <span>Home</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('shorts'); return false;">
+                <i class="fa fa-bolt"></i>
+                <span>Shorts</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('subscriptions'); return false;">
+                <i class="fa fa-play-circle"></i>
+                <span>Subscriptions</span>
+            </a>
+        </div>
+        <hr>
+        <div class="sidebar-section">
+            <h3>You</h3>
+            <a href="#" class="sidebar-item" onclick="navigateTo('channel'); return false;">
+                <i class="fa fa-user"></i>
+                <span>Your Channel</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('history'); return false;">
+                <i class="fa fa-history"></i>
+                <span>History</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('watchlater'); return false;">
+                <i class="fa fa-clock-o"></i>
+                <span>Watch Later</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('liked'); return false;">
+                <i class="fa fa-thumbs-up"></i>
+                <span>Liked Videos</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('playlist'); return false;">
+                <i class="fa fa-list"></i>
+                <span>Playlists</span>
+            </a>
+        </div>
+        <hr>
+        <div class="sidebar-section">
+            <h3>Explore</h3>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('trending'); return false;">
+                <i class="fa fa-fire"></i>
+                <span>Trending</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('music'); return false;">
+                <i class="fa fa-music"></i>
+                <span>Music</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('gaming'); return false;">
+                <i class="fa fa-gamepad"></i>
+                <span>Gaming</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('news'); return false;">
+                <i class="fa fa-newspaper-o"></i>
+                <span>News</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('sports'); return false;">
+                <i class="fa fa-trophy"></i>
+                <span>Sports</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('movies'); return false;">
+                <i class="fa fa-film"></i>
+                <span>Movies</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="filterByCategory('live'); return false;">
+                <i class="fa fa-satellite-dish"></i>
+                <span>Live</span>
+            </a>
+        </div>
+        <hr>
+        <div class="sidebar-section">
+            <h3>Settings</h3>
+            <a href="#" class="sidebar-item" onclick="navigateTo('settings'); return false;">
+                <i class="fa fa-cog"></i>
+                <span>Settings</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('privacy'); return false;">
+                <i class="fa fa-shield"></i>
+                <span>Privacy</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('help'); return false;">
+                <i class="fa fa-question-circle"></i>
+                <span>Help</span>
+            </a>
+            <a href="#" class="sidebar-item" onclick="navigateTo('feedback'); return false;">
+                <i class="fa fa-comment"></i>
+                <span>Send Feedback</span>
+            </a>
+        </div>
+    </aside>
+
+    <main class="main-content" id="mainContent">
+     
+        <div id="homeView" class="view-section">
+            <div class="video-grid" id="videoGrid">
+              
+            </div>
+        </div>
+        
+        <div id="channelView" class="view-section" style="display: none;">
+            <div class="channel-header">
+                <div class="channel-banner"></div>
+                <div class="channel-info">
+                    <div class="channel-avatar-large" id="channelAvatar">R</div>
+                    <div class="channel-details">
+                        <h1 id="channelName">Your Channel</h1>
+                        <p id="channelSubscribers">0 subscribers</p>
+                        <p id="channelDescription">Welcome to your channel!</p>
+                    </div>
+                    <button class="channel-btn" onclick="navigateTo('settings')">Manage Videos</button>
+                </div>
+            </div>
+            <div class="channel-tabs">
+                <button class="channel-tab active">Videos</button>
+                <button class="channel-tab">Playlists</button>
+                <button class="channel-tab">Community</button>
+                <button class="channel-tab">Channels</button>
+                <button class="channel-tab">About</button>
+            </div>
+            <div class="channel-content" id="channelVideos">
+                
+            </div>
+        </div>
+        
+        <div id="historyView" class="view-section" style="display: none;">
+            <h2>History</h2>
+            <div class="history-list" id="historyList">
+               
+            </div>
+        </div>
+        
+        <div id="watchLaterView" class="view-section" style="display: none;">
+            <h2>Watch Later</h2>
+            <div class="playlist-grid" id="watchLaterGrid">
+                
+            </div>
+        </div>
+        
+        <div id="likedView" class="view-section" style="display: none;">
+            <h2>Liked Videos</h2>
+            <div class="playlist-grid" id="likedGrid">
+            
+            </div>
+        </div>
+        
+        <div id="settingsView" class="view-section" style="display: none;">
+            <h2>Settings</h2>
+            <div class="settings-container">
+                <div class="settings-item">
+                    <h3>Account</h3>
+                    <p>Manage your account settings</p>
+                </div>
+                <div class="settings-item">
+                    <h3>Privacy</h3>
+                    <p>Control your privacy settings</p>
+                </div>
+                <div class="settings-item">
+                    <h3>Notifications</h3>
+                    <p>Manage notification preferences</p>
+                </div>
+                <div class="settings-item">
+                    <h3>Appearance</h3>
+                    <p>Customize the look and feel</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+ 
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeAuthModal">&times;</span>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="signin" onclick="switchAuthTab('signin')">Sign In</button>
+                <button class="auth-tab" data-tab="signup" onclick="switchAuthTab('signup')">Sign Up</button>
+            </div>
+            
+           
+            <form id="signinForm" class="auth-form active" onsubmit="handleSignIn(event)">
+                <h2>Welcome Back</h2>
+                <input type="email" id="signinEmail" placeholder="Email" required>
+                <input type="password" id="signinPassword" placeholder="Password" required>
+                <button type="submit" class="auth-btn">Sign In</button>
+                <p class="auth-error" id="signinError"></p>
+                <p class="auth-info">Demo: Use any email/password to sign in</p>
+            </form>
+            
+            <!-- Sign Up Form -->
+            <form id="signupForm" class="auth-form" onsubmit="handleSignUp(event)">
+                <h2>Create Account</h2>
+                <input type="text" id="signupName" placeholder="Full Name" required>
+                <input type="email" id="signupEmail" placeholder="Email" required>
+                <input type="password" id="signupPassword" placeholder="Password" required>
+                <button type="submit" class="auth-btn">Sign Up</button>
+                <p class="auth-error" id="signupError"></p>
+                <p class="auth-info">Demo: Use any name/email/password to sign up</p>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="modal" id="uploadModal">
+        <div class="modal-content upload-modal">
+            <span class="close-modal" id="closeUploadModal">&times;</span>
+            <h2>Upload Video</h2>
+            <form id="uploadForm" onsubmit="handleUpload(event)">
+                <div class="upload-area" id="uploadArea">
+                    <i class="fa fa-cloud-upload"></i>
+                    <p>Drag and drop video files or click to select</p>
+                    <input type="file" id="videoFile" accept="video/*" required onchange="handleFileSelect(event)">
+                </div>
+                <div class="upload-preview" id="uploadPreview"></div>
+                <div class="upload-info" id="uploadInfo"></div>
+                <input type="text" id="videoTitle" placeholder="Video Title" required>
+                <textarea id="videoDescription" placeholder="Description" rows="4"></textarea>
+                <select id="videoCategory">
+                    <option value="music">Music</option>
+                    <option value="gaming">Gaming</option>
+                    <option value="coding">Coding</option>
+                    <option value="tutorials">Tutorials</option>
+                    <option value="news">News</option>
+                    <option value="sports">Sports</option>
+                    <option value="movies">Movies</option>
+                    <option value="comedy">Comedy</option>
+                    <option value="education">Education</option>
+                    <option value="live">Live</option>
+                </select>
+                <div class="upload-options">
+                    <label>
+                        <input type="checkbox" id="videoPublic" checked> Public
+                    </label>
+                    <label>
+                        <input type="checkbox" id="videoComments" checked> Allow Comments
+                    </label>
+                </div>
+                <button type="submit" class="upload-btn" id="uploadSubmitBtn">Upload to Database</button>
+                <p class="upload-progress" id="uploadProgress"></p>
+            </form>
+        </div>
+    </div>
+
+    
+    <div class="profile-dropdown" id="profileDropdown">
+        <div class="profile-header">
+            <div class="profile-avatar" id="profileAvatar">U</div>
+            <div class="profile-info">
+                <h4 id="profileName">User Name</h4>
+                <p id="profileEmail">user@example.com</p>
+                <p id="profileUid"></p>
+            </div>
+        </div>
+        <hr>
+        <a href="#" class="profile-item" onclick="navigateTo('channel'); closeProfileDropdown(); return false;">
+            <i class="fa fa-user"></i> Your Channel
+        </a>
+        <a href="#" class="profile-item" onclick="navigateTo('studio'); return false;">
+            <i class="fa fa-video-camera"></i> Creator Studio
+        </a>
+        <a href="#" class="profile-item" onclick="navigateTo('settings'); closeProfileDropdown(); return false;">
+            <i class="fa fa-cog"></i> Settings
+        </a>
+        <a href="#" class="profile-item" onclick="navigateTo('privacy'); return false;">
+            <i class="fa fa-shield"></i> Privacy
+        </a>
+        <hr>
+        <a href="#" class="profile-item" onclick="showHelp(); return false;">
+            <i class="fa fa-question-circle"></i> Help
+        </a>
+        <a href="#" class="profile-item" onclick="sendFeedback(); return false;">
+            <i class="fa fa-comment"></i> Send Feedback
+        </a>
+        <hr>
+        <button class="signout-btn" id="signoutBtn" onclick="handleSignOut()">Sign Out</button>
+    </div>
+
+    
+    <div class="modal" id="videoPlayerModal">
+        <div class="modal-content video-player-modal">
+            <span class="close-modal" id="closeVideoPlayer" onclick="closeVideoPlayer()">&times;</span>
+            <div class="video-player-container">
+                <video id="videoPlayer" controls></video>
+            </div>
+            <div class="video-player-info">
+                <h2 id="playerVideoTitle"></h2>
+                <div class="video-player-stats">
+                    <span id="playerVideoViews"></span>
+                    <span id="playerVideoDate"></span>
+                </div>
+                <div class="video-player-actions">
+                    <button class="action-btn" onclick="likeVideo()"><i class="fa fa-thumbs-up"></i> Like</button>
+                    <button class="action-btn" onclick="shareVideo()"><i class="fa fa-share"></i> Share</button>
+                    <button class="action-btn" onclick="addToWatchLater()"><i class="fa fa-clock-o"></i> Watch Later</button>
+                </div>
+                <div class="video-player-channel">
+                    <div class="channel-avatar" id="playerChannelAvatar">C</div>
+                    <div class="channel-info">
+                        <h4 id="playerChannelName"></h4>
+                        <button class="subscribe-btn" id="subscribeBtn">Subscribe</button>
+                    </div>
+                </div>
+                <div class="video-player-description" id="playerVideoDescription"></div>
+            </div>
+        </div>
+    </div>
+
+  
+    <div class="notifications-panel" id="notificationsPanel">
+        <div class="notifications-header">
+            <h3>Notifications</h3>
+            <button class="mark-read-btn" onclick="markAllRead()">Mark all as read</button>
+        </div>
+        <div class="notifications-list" id="notificationsList">
+            <p class="no-notifications">No notifications yet</p>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
