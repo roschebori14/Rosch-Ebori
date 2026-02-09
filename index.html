@@ -3,29 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css">
+    <title>MY Page</title>
 </head>
 <body>
-    <header>
-<a href="#about" id="href1">about</a>
-<a href="#faq" id="href1">feedback</a>
-<a href="#contact" id="href1">contact</a>
-<a href="#more" id="href1">more</a>
-</header>
-<div class="pages">
-    <section id="about" class="panel">
-        <h1>ABOUT</h1>
-    </section>
-    <section id="contact" class="panel">
-        <h1>CONTACT</h1>
-    </section>
-    <section id="faq" class="panel">
-        <h1>FEEDBACK</h1>
-    </section>
-    <section id="more" class="panel">
-        <h1>MORE</h1>
-    </section>
-</div>
+    <h1 id="main-title">Original Title</h1>
+    <p>Welcome to this Site.</p>
+    <div>
+        <ul>
+<li>Money</li>
+<li>Money</li>
+<li>Money</li>
+<li>Money</li>
+<li>Money</li>
+<li>Money</li>
+        </ul>
+             <p>New element</p>
+          <button id="btn1">Click </button>
+    </div> 
+    <script>
+        const mainHeading = document.querySelector("#main-title");
+        mainHeading.textContent = "New Title";
+        mainHeading.style.color = "blue";
+        mainHeading.classList.add("Highlight");
+
+        const newEl = document.createElement("p");
+        document.body.appendChild(newEl);
+        newEl.textContent = "you all mother F****** bro's";
+
+        const button = document.querySelector("button");
+        button.addEventListener("click", () =>{
+            console.log("Button was Clicked");
+            alert("Button was clicked");
+        })
+    </script>
 </body>
 </html>

@@ -1,0 +1,95 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(99, 90, 90);
+    padding: 20px;
+    width: 470px;
+    margin-left: 30%;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px grey;
+    margin-top: 15%;
+    transition: all 2s ease;
+    height: 350px;
+
+}
+
+body {
+    background-color: rgb(31, 30, 30);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.div1 {
+    position: absolute;
+    order: 1;
+    padding: 10px;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 10px;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 50px;
+    z-index: 2;
+    width: 250px;
+    height: 304px;
+    text-align: center;
+    box-shadow: 0px 0px 40px rgb(8, 8, 8);
+    background-color: rgb(24, 44, 24);
+
+}
+
+.div2 {
+    position: absolute;
+    order: 2;
+    background-color: rgb(51, 36, 36);
+    padding: 10px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 50px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 10px;
+    z-index: 1;
+    width: 250px;
+    margin-left: 178px;
+    height: 304px;
+    text-align: center;
+    box-shadow: 0px 0px 40px rgb(182, 178, 178);
+
+}
+
+button {
+    padding: 5px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    background-color: bisque;
+    width: 100px;
+    box-shadow: 0px 0px 10px;
+}
+
+.container:hover .div1 {
+    transform: translateX(70%);
+    border-top-left-radius: 0px;
+    z-index: 0;
+    box-shadow: 0px 0px 10px rgb(2, 70, 2);
+     background-color: rgb(44, 41, 53);
+      transform: scale(0.-9);
+
+}
+
+.container:hover .div2  {
+    transform: translateX(-70%);
+    border-top-left-radius: 00px;
+    border-bottom-left-radius: 50px;
+    border-top-left-radius: 10px;
+    box-shadow: 0px 0px 10px rgb(49, 1, 1);
+    background-color: rgb(66, 63, 62);
+    transform: scale(-4.-9);
+}
+
+.div1, .div2 {
+    transition: 2s ease-in-out;
+    transition: z-index 17s transform border-radius color 2s ease-in-out;
+}

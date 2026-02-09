@@ -1,0 +1,84 @@
+* {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: rgb(34, 33, 33);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(153, 152, 152);
+    height: 250px;
+    width: 290px;
+    border-radius: 15px;
+    padding: 10px;
+    margin-top: 15%;
+    margin-left: 30%;
+    gap: 5px;
+      box-shadow: 0px 0px 10px white ;
+
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border: 2px solid black;
+    transition:  2s ease-in-out;
+    overflow: hidden;
+    box-shadow: 0px 0px 10px ;
+   
+}
+
+p {
+    width: 60px;
+    transition:  transform 1s linear;
+    font-weight: 500;
+    font-size: 15px;
+    position: relative;
+
+}
+
+.card:hover p{
+    transform: rotate(180deg);
+    color: white;
+
+  
+}
+.card:hover{
+    width: 200px;
+     scale: calc(-1.0);
+     background-color: rgb(44, 45, 53);
+     transition: all width 2s;
+}
+button{
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: none;
+    margin-top: 30px;
+    margin-left: 44%;
+    font-weight: 700;
+    font-size: 15px;
+    transition: 2s ease-in-out;
+}
+@keyframes shadow-pulse{
+    0%{ box-shadow: 0px 0px 20px white;}
+    25%{ box-shadow: 0px 0px 20px rgb(2, 3, 44);}
+    50%{ box-shadow: 0px 0px 20px rgb(77, 2, 2);}
+    75%{ box-shadow: 0px 0px 20px rgb(3, 65, 14);}
+    100%{ box-shadow: 0px 0px 20px rgb(78, 25, 4);}
+}
+button:hover{
+    animation: shadow-pulse 3s ease-in-out infinite;
+    background-color: rgb(66, 64, 64);
+}
+

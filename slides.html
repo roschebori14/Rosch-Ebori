@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image Slider</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: sans-serif; }
+
+    .slider {
+      position: relative;
+      max-width: 600px;
+      margin: auto;
+      overflow: hidden;
+    }
+
+    .slides {
+      display: flex;
+      width: 300%;
+      animation: slide 9s infinite;
+    }
+
+    .slides img {
+      width: 100%;
+      height: 300px;
+      border: 20px solid grey;
+      border-radius: 20px;
+    }
+
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      33% { transform: translateX(-100%); }
+      66% { transform: translateX(-200%); }
+      100% { transform: translateX(0); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="slider">
+  <div class="slides">
+    <img src="/anime/0aa5e1d6fa8c38a0b43fe01756f6a429.jpg" alt="Image 1"/>
+    <img src="/anime/1134150.jpg" alt="Image 2"/>
+    <img src="/anime/77008-3840x2160-desktop-4k-drstone-wallpaper-photo - Copy.jpg" alt="Image 3"/>
+  </div>
+</div>
+
+</body>
+</html>

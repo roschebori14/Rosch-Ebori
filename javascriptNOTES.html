@@ -1,0 +1,1396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript with HTML & CSS Guide</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+        }
+        
+        .main-content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        .sidebar {
+            background-color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        }
+        
+        h2 {
+            color: #4a5568;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+            margin: 35px 0 20px;
+        }
+        
+        h3 {
+            color: #5a67d8;
+            margin: 20px 0 12px;
+            font-size: 1.4rem;
+        }
+        
+        .section-card {
+            background: linear-gradient(to right, #f8f9fa, #ffffff);
+            border-left: 5px solid #5a67d8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .section-card:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .section-icon {
+            background: linear-gradient(135deg, #5a67d8, #805ad5);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        
+        .code-block {
+            background-color: #2d3748;
+            color: #e2e8f0;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.95rem;
+            overflow-x: auto;
+            line-height: 1.5;
+        }
+        
+        .demo-area {
+            background-color: #f7fafc;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border: 2px dashed #cbd5e0;
+        }
+        
+        .demo-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .demo-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        button {
+            background: linear-gradient(135deg, #5a67d8, #805ad5);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            background: linear-gradient(135deg, #4c51bf, #6b46c1);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #718096, #4a5568);
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #4a5568, #2d3748);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #48bb78, #38a169);
+        }
+        
+        .btn-success:hover {
+            background: linear-gradient(135deg, #38a169, #2f855a);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #f56565, #e53e3e);
+        }
+        
+        .btn-danger:hover {
+            background: linear-gradient(135deg, #e53e3e, #c53030);
+        }
+        
+        input, select, textarea {
+            padding: 12px 15px;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #5a67d8;
+            box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.1);
+        }
+        
+        .output {
+            background-color: #1a202c;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            min-height: 60px;
+            white-space: pre-wrap;
+            overflow-wrap: break-word;
+            border-left: 4px solid #5a67d8;
+        }
+        
+        .note {
+            background: linear-gradient(to right, #feebc8, #fbd38d);
+            padding: 15px 20px;
+            border-left: 5px solid #dd6b20;
+            margin: 20px 0;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+        }
+        
+        .note strong {
+            color: #9c4221;
+        }
+        
+        .toc {
+            position: sticky;
+            top: 20px;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            color: #4a5568;
+        }
+        
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .toc li {
+            margin: 12px 0;
+            padding-left: 10px;
+            border-left: 3px solid transparent;
+            transition: all 0.3s;
+        }
+        
+        .toc li:hover {
+            border-left-color: #5a67d8;
+            padding-left: 15px;
+        }
+        
+        .toc a {
+            color: #4a5568;
+            text-decoration: none;
+            display: block;
+            padding: 5px 0;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #5a67d8;
+        }
+        
+        .example-box {
+            background-color: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .element-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            margin: 15px 0;
+            border-radius: 8px;
+            background-color: #f7fafc;
+            min-height: 100px;
+            transition: all 0.3s;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 25px;
+            color: #718096;
+            font-size: 0.9rem;
+            border-top: 1px solid #e2e8f0;
+        }
+        
+        .color-box {
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            margin: 10px;
+            display: inline-block;
+            transition: all 0.5s;
+        }
+        
+        .dom-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+        
+        .dom-node {
+            background-color: #5a67d8;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            margin: 5px;
+            min-width: 150px;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .dom-children {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        
+        .dom-child {
+            background-color: #805ad5;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>JavaScript with HTML & CSS Guide</h1>
+        <p class="subtitle">Learn how to use JavaScript to manipulate HTML elements, CSS styles, and create interactive web experiences.</p>
+    </header>
+    
+    <div class="container">
+        <main class="main-content">
+            <!-- Section 1: DOM Selection -->
+            <section id="dom-selection">
+                <h2>1. Selecting HTML Elements with JavaScript</h2>
+                <p>The Document Object Model (DOM) allows JavaScript to interact with HTML elements. First, we need to select elements.</p>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">ID</div>
+                        <h3>getElementById()</h3>
+                    </div>
+                    <p><strong>Use when:</strong> Selecting a single element with a unique ID. Returns a single element or null.</p>
+                    <div class="code-block">// HTML: &lt;div id="header"&gt;Welcome&lt;/div&gt;
+const header = document.getElementById('header');
+console.log(header.textContent); // "Welcome"</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Select by ID</h4>
+                        </div>
+                        <div id="demo-header" class="element-visual">This is a header with ID "demo-header"</div>
+                        <div class="demo-controls">
+                            <button onclick="selectById()">Select by ID</button>
+                            <button onclick="changeById()">Change Content</button>
+                        </div>
+                        <div class="output" id="selection-output-1"></div>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">CN</div>
+                        <h3>getElementsByClassName()</h3>
+                    </div>
+                    <p><strong>Use when:</strong> Selecting multiple elements with the same class. Returns an HTMLCollection (live collection).</p>
+                    <div class="code-block">// HTML: &lt;div class="item"&gt;Item 1&lt;/div&gt;&lt;div class="item"&gt;Item 2&lt;/div&gt;
+const items = document.getElementsByClassName('item');
+console.log(items.length); // 2
+items[0].style.color = 'red'; // Change first item</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Select by Class</h4>
+                        </div>
+                        <div class="element-visual">
+                            <span class="demo-item">Item 1</span>
+                            <span class="demo-item">Item 2</span>
+                            <span class="demo-item">Item 3</span>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="selectByClass()">Select by Class</button>
+                            <button onclick="colorItems()">Color All Items</button>
+                        </div>
+                        <div class="output" id="selection-output-2"></div>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">QS</div>
+                        <h3>querySelector() & querySelectorAll()</h3>
+                    </div>
+                    <p><strong>Use when:</strong> Selecting elements using CSS selectors. querySelector returns the first match, querySelectorAll returns a NodeList (static collection).</p>
+                    <div class="code-block">// Select first element with class 'box'
+const firstBox = document.querySelector('.box');
+
+// Select all elements with class 'box'
+const allBoxes = document.querySelectorAll('.box');
+
+// Select element with data attribute
+const special = document.querySelector('[data-type="special"]');
+
+// Complex CSS selector
+const listItems = document.querySelectorAll('ul li:nth-child(odd)');</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Query Selector</h4>
+                        </div>
+                        <div class="element-visual">
+                            <div class="demo-box" data-type="box">Box 1</div>
+                            <div class="demo-box special" data-type="special">Special Box</div>
+                            <div class="demo-box">Box 3</div>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="querySelectFirst()">Select First Box</button>
+                            <button onclick="querySelectAll()">Select All Boxes</button>
+                            <button onclick="querySelectSpecial()">Select Special Box</button>
+                        </div>
+                        <div class="output" id="selection-output-3"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 2: DOM Manipulation -->
+            <section id="dom-manipulation">
+                <h2>2. Manipulating HTML Elements</h2>
+                <p>Once you've selected elements, you can change their content, attributes, and structure.</p>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">CT</div>
+                        <h3>Changing Content & Attributes</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to update text, HTML, or element attributes dynamically.</p>
+                    <div class="code-block">// Change text content (safer, no HTML parsing)
+element.textContent = 'New text';
+
+// Change HTML content (can include HTML tags)
+element.innerHTML = '&lt;strong&gt;Bold text&lt;/strong&gt;';
+
+// Get or set attribute values
+element.setAttribute('data-id', '123');
+const id = element.getAttribute('data-id');
+element.removeAttribute('data-id');
+
+// Direct property access for standard attributes
+element.id = 'new-id';
+element.className = 'new-class'; // Replaces all classes
+element.classList.add('new-class'); // Add a class
+element.classList.remove('old-class'); // Remove a class
+element.classList.toggle('active'); // Toggle a class</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Content & Attribute Manipulation</h4>
+                        </div>
+                        <div class="element-visual">
+                            <div id="manipulation-demo" class="demo-target" data-counter="0">Original Content</div>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="changeTextContent()">Change Text</button>
+                            <button onclick="changeInnerHTML()">Change HTML</button>
+                            <button onclick="toggleClass()">Toggle Class</button>
+                            <button onclick="updateAttribute()">Update Data Attribute</button>
+                        </div>
+                        <div class="output" id="manipulation-output"></div>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">EL</div>
+                        <h3>Creating & Removing Elements</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to dynamically add or remove elements from the page.</p>
+                    <div class="code-block">// Create new element
+const newDiv = document.createElement('div');
+newDiv.textContent = 'I am a new div';
+newDiv.className = 'new-element';
+
+// Add to page (at the end of parent)
+parentElement.appendChild(newDiv);
+
+// Add to page at specific position
+parentElement.insertBefore(newDiv, referenceElement);
+
+// Remove an element
+elementToRemove.remove();
+
+// Remove child from parent
+parentElement.removeChild(childElement);
+
+// Clone an element
+const clonedElement = originalElement.cloneNode(true); // true = deep clone</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Create & Remove Elements</h4>
+                        </div>
+                        <div id="element-container" class="element-visual">
+                            <div class="list-item">Original Item</div>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="createNewElement()">Add New Element</button>
+                            <button onclick="removeLastElement()">Remove Last Element</button>
+                            <button onclick="cloneFirstElement()">Clone First Element</button>
+                            <button onclick="clearAllElements()">Clear All</button>
+                        </div>
+                        <div class="output" id="creation-output"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 3: CSS Manipulation -->
+            <section id="css-manipulation">
+                <h2>3. Manipulating CSS with JavaScript</h2>
+                <p>JavaScript can dynamically change CSS styles, classes, and computed styles.</p>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">ST</div>
+                        <h3>Inline Style Manipulation</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to apply dynamic, element-specific styles that aren't in your stylesheet.</p>
+                    <div class="code-block">// Apply inline styles
+element.style.color = 'blue';
+element.style.backgroundColor = '#f0f0f0';
+element.style.fontSize = '18px';
+
+// Multiple styles at once
+element.style.cssText = 'color: red; font-size: 20px; margin: 10px;';
+
+// CSS custom properties (variables)
+element.style.setProperty('--main-color', '#ff0000');
+
+// Remove a style
+element.style.color = ''; // Empty string removes the style
+
+// Note: Use camelCase for CSS properties with hyphens
+element.style.fontFamily = 'Arial'; // Not font-family</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Inline Style Manipulation</h4>
+                        </div>
+                        <div id="style-demo" class="element-visual">Style Me!</div>
+                        <div class="demo-controls">
+                            <button onclick="changeColor()">Change Color</button>
+                            <button onclick="changeSize()">Change Size</button>
+                            <button onclick="rotateElement()">Rotate</button>
+                            <button onclick="resetStyles()">Reset Styles</button>
+                        </div>
+                        <div class="output" id="style-output"></div>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">CL</div>
+                        <h3>ClassList Manipulation</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You have predefined CSS classes and want to toggle them dynamically. More efficient than inline styles for complex changes.</p>
+                    <div class="code-block">// Add a class
+element.classList.add('active', 'highlight'); // Can add multiple
+
+// Remove a class
+element.classList.remove('inactive');
+
+// Toggle a class
+element.classList.toggle('visible'); // Adds if missing, removes if present
+
+// Check if element has a class
+if (element.classList.contains('active')) {
+    // Do something
+}
+
+// Replace a class
+element.classList.replace('old-class', 'new-class');</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: ClassList Manipulation</h4>
+                        </div>
+                        <div id="class-demo" class="element-visual">Click buttons to add/remove classes</div>
+                        <div class="demo-controls">
+                            <button onclick="addClassDemo()">Add 'highlight' Class</button>
+                            <button onclick="removeClassDemo()">Remove 'highlight' Class</button>
+                            <button onclick="toggleClassDemo()">Toggle 'rounded' Class</button>
+                            <button onclick="addMultipleClasses()">Add Multiple Classes</button>
+                        </div>
+                        <div class="output" id="class-output"></div>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">CS</div>
+                        <h3>Getting Computed Styles</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to read the actual, computed styles of an element (including from stylesheets).</p>
+                    <div class="code-block">// Get computed style of an element
+const style = window.getComputedStyle(element);
+const color = style.getPropertyValue('color');
+const fontSize = style.fontSize;
+
+// Get specific property
+const marginTop = style.getPropertyValue('margin-top');
+
+// Read CSS custom properties
+const mainColor = style.getPropertyValue('--main-color');
+
+// Note: Returns values in pixels for most size properties
+const width = style.width; // "200px"</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Get Computed Styles</h4>
+                        </div>
+                        <div id="computed-demo" class="element-visual">Check my computed styles</div>
+                        <div class="demo-controls">
+                            <button onclick="getComputedStyles()">Get Computed Styles</button>
+                            <button onclick="getSpecificStyle()">Get Font Size</button>
+                        </div>
+                        <div class="output" id="computed-output"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 4: Events -->
+            <section id="events">
+                <h2>4. Event Handling</h2>
+                <p>JavaScript allows you to respond to user interactions and browser events.</p>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">EV</div>
+                        <h3>Event Listeners</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to respond to user interactions like clicks, key presses, or form submissions.</p>
+                    <div class="code-block">// Add event listener
+element.addEventListener('click', function(event) {
+    console.log('Element clicked!');
+    console.log('Event target:', event.target);
+});
+
+// With named function
+function handleClick(event) {
+    console.log('Clicked!');
+}
+element.addEventListener('click', handleClick);
+
+// Remove event listener
+element.removeEventListener('click', handleClick);
+
+// Common events:
+// click, dblclick, mouseover, mouseout, mousemove
+// keydown, keyup, keypress
+// focus, blur, change, input, submit
+// load, resize, scroll</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Event Listeners</h4>
+                        </div>
+                        <div id="event-demo" class="element-visual">Click, mouseover, or type in the input</div>
+                        <div class="demo-controls">
+                            <input type="text" id="event-input" placeholder="Type something...">
+                            <button id="event-button">Click Me!</button>
+                        </div>
+                        <div class="output" id="event-output"></div>
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">EF</div>
+                        <h3>Event Object & Propagation</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to control how events propagate through the DOM or access event details.</p>
+                    <div class="code-block">// Event object properties
+element.addEventListener('click', function(event) {
+    event.preventDefault(); // Prevent default behavior (e.g., form submission)
+    event.stopPropagation(); // Stop event from bubbling up
+    
+    // Common properties
+    console.log(event.target); // Element that triggered event
+    console.log(event.currentTarget); // Element with event listener
+    console.log(event.type); // Event type ('click')
+    
+    // Mouse events
+    console.log(event.clientX, event.clientY); // Mouse position
+    
+    // Keyboard events
+    console.log(event.key); // Key pressed
+    console.log(event.ctrlKey); // Was Ctrl key pressed?
+});
+
+// Event delegation (handle events on parent for dynamic children)
+parentElement.addEventListener('click', function(event) {
+    if (event.target.matches('.item')) {
+        console.log('Item clicked:', event.target.textContent);
+    }
+});</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Event Propagation</h4>
+                        </div>
+                        <div id="event-propagation" class="element-visual" style="padding: 30px; background-color: #e2e8f0;">
+                            <div id="outer-box" style="padding: 25px; background-color: #cbd5e0;">
+                                Outer Box (click me)
+                                <div id="inner-box" style="padding: 20px; background-color: #a0aec0; margin: 10px;">
+                                    Inner Box (click me)
+                                    <div id="deep-box" style="padding: 15px; background-color: #718096; margin: 10px;">
+                                        Deep Box (click me)
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="demo-controls">
+                            <button onclick="addPropagationListeners()">Add Event Listeners</button>
+                            <button onclick="stopPropagationDemo()">Stop Propagation</button>
+                            <button onclick="clearPropagationOutput()">Clear Output</button>
+                        </div>
+                        <div class="output" id="propagation-output"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Section 5: Forms -->
+            <section id="forms">
+                <h2>5. Working with Forms</h2>
+                <p>JavaScript provides powerful tools for form validation, manipulation, and submission.</p>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <div class="section-icon">FM</div>
+                        <h3>Form Access & Validation</h3>
+                    </div>
+                    <p><strong>Use when:</strong> You need to read form values, validate input, or handle form submission.</p>
+                    <div class="code-block">// Access form elements
+const form = document.getElementById('myForm');
+const input = document.querySelector('#myForm input[name="username"]');
+
+// Get form values
+const username = form.elements.username.value;
+const email = form.email.value; // If element has name="email"
+
+// Form submission
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent page reload
+    
+    // Validate form
+    if (!validateForm()) {
+        return; // Stop if validation fails
+    }
+    
+    // Process form data
+    const formData = new FormData(form);
+    
+    // Submit via AJAX or continue
+    console.log('Form submitted!');
+});
+
+// Real-time validation
+input.addEventListener('input', function() {
+    if (input.value.length < 3) {
+        input.setCustomValidity('Username must be at least 3 characters');
+    } else {
+        input.setCustomValidity('');
+    }
+});</div>
+                    
+                    <div class="demo-area">
+                        <div class="demo-title">
+                            <h4>Demo: Form Handling</h4>
+                        </div>
+                        <form id="demo-form">
+                            <div style="margin-bottom: 15px;">
+                                <label for="demo-name">Name:</label>
+                                <input type="text" id="demo-name" name="name" placeholder="Enter your name" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="demo-email">Email:</label>
+                                <input type="email" id="demo-email" name="email" placeholder="Enter your email" required>
+                            </div>
+                            <div style="margin-bottom: 15px;">
+                                <label for="demo-message">Message:</label>
+                                <textarea id="demo-message" name="message" placeholder="Enter your message" rows="3"></textarea>
+                            </div>
+                            <div class="demo-controls">
+                                <button type="submit">Submit Form</button>
+                                <button type="button" onclick="getFormValues()">Get Form Values</button>
+                                <button type="reset">Reset Form</button>
+                            </div>
+                        </form>
+                        <div class="output" id="form-output"></div>
+                    </div>
+                </div>
+            </section>
+            
+            <div class="note">
+                <strong>Best Practice:</strong> For better performance, cache DOM elements in variables when you need to use them multiple times. Also, prefer class toggling over inline styles for complex style changes, as it keeps styling in CSS where it belongs.
+            </div>
+        </main>
+        
+        <aside class="sidebar">
+            <div class="toc">
+                <h3>Quick Navigation</h3>
+                <ul>
+                    <li><a href="#dom-selection">1. DOM Selection</a></li>
+                    <li><a href="#dom-manipulation">2. DOM Manipulation</a></li>
+                    <li><a href="#css-manipulation">3. CSS Manipulation</a></li>
+                    <li><a href="#events">4. Event Handling</a></li>
+                    <li><a href="#forms">5. Form Handling</a></li>
+                </ul>
+                
+                <h3>DOM Selection Methods</h3>
+                <ul>
+                    <li><code>getElementById()</code> - Single element by ID</li>
+                    <li><code>getElementsByClassName()</code> - Collection by class</li>
+                    <li><code>getElementsByTagName()</code> - Collection by tag</li>
+                    <li><code>querySelector()</code> - First match by CSS selector</li>
+                    <li><code>querySelectorAll()</code> - All matches by CSS selector</li>
+                </ul>
+                
+                <h3>Common Properties</h3>
+                <ul>
+                    <li><code>textContent</code> - Get/set text only</li>
+                    <li><code>innerHTML</code> - Get/set HTML content</li>
+                    <li><code>style</code> - Access inline styles</li>
+                    <li><code>classList</code> - Manipulate CSS classes</li>
+                    <li><code>dataset</code> - Access data-* attributes</li>
+                </ul>
+                
+                <h3>Key Events</h3>
+                <ul>
+                    <li><code>click</code> - Mouse click</li>
+                    <li><code>input</code> - Input value changed</li>
+                    <li><code>change</code> - Input lost focus after change</li>
+                    <li><code>submit</code> - Form submission</li>
+                    <li><code>keydown</code> - Key pressed</li>
+                    <li><code>load</code> - Page/element loaded</li>
+                </ul>
+                
+                <h3>CSS Properties in JS</h3>
+                <p>Remember: CSS properties with hyphens become camelCase in JavaScript:</p>
+                <ul>
+                    <li><code>background-color</code> → <code>backgroundColor</code></li>
+                    <li><code>font-size</code> → <code>fontSize</code></li>
+                    <li><code>border-radius</code> → <code>borderRadius</code></li>
+                </ul>
+                
+                <h3>Try These</h3>
+                <p>Experiment with the demos by:</p>
+                <ol>
+                    <li>Modifying values in inputs</li>
+                    <li>Combining different functions</li>
+                    <li>Using browser console to test code</li>
+                    <li>Creating your own variations</li>
+                </ol>
+            </div>
+        </aside>
+    </div>
+    
+    <footer>
+        <p>JavaScript with HTML & CSS Guide &copy; 2023 | Interactive Learning Resource</p>
+        <p>Open browser console (F12) to see additional logging and experiment with JavaScript directly!</p>
+    </footer>
+    
+    <script>
+        // DOM Selection Section
+        function selectById() {
+            const element = document.getElementById('demo-header');
+            const output = document.getElementById('selection-output-1');
+            output.textContent = `Selected element: ${element.tagName}\n`;
+            output.textContent += `Element ID: ${element.id}\n`;
+            output.textContent += `Text content: "${element.textContent}"`;
+            
+            // Highlight the element briefly
+            element.style.backgroundColor = '#c6f6d5';
+            setTimeout(() => element.style.backgroundColor = '', 1000);
+        }
+        
+        function changeById() {
+            const element = document.getElementById('demo-header');
+            element.textContent = 'Content changed via getElementById()!';
+            element.style.color = '#805ad5';
+            element.style.fontWeight = 'bold';
+            
+            const output = document.getElementById('selection-output-1');
+            output.textContent = 'Element content and style changed successfully!';
+        }
+        
+        function selectByClass() {
+            const elements = document.getElementsByClassName('demo-item');
+            const output = document.getElementById('selection-output-2');
+            
+            output.textContent = `Found ${elements.length} elements with class "demo-item":\n`;
+            for (let i = 0; i < elements.length; i++) {
+                output.textContent += `${i}: "${elements[i].textContent}"\n`;
+            }
+        }
+        
+        function colorItems() {
+            const elements = document.getElementsByClassName('demo-item');
+            const colors = ['#f56565', '#48bb78', '#4299e1'];
+            
+            for (let i = 0; i < elements.length; i++) {
+                elements[i].style.color = colors[i % colors.length];
+                elements[i].style.fontWeight = 'bold';
+                elements[i].style.padding = '5px 10px';
+                elements[i].style.borderRadius = '4px';
+            }
+            
+            const output = document.getElementById('selection-output-2');
+            output.textContent = 'Applied colors to all items with class "demo-item"';
+        }
+        
+        function querySelectFirst() {
+            const element = document.querySelector('.demo-box');
+            const output = document.getElementById('selection-output-3');
+            
+            output.textContent = `First element with class "demo-box":\n`;
+            output.textContent += `Text: "${element.textContent}"\n`;
+            output.textContent += `Data type: ${element.getAttribute('data-type')}`;
+            
+            element.style.backgroundColor = '#fefcbf';
+        }
+        
+        function querySelectAll() {
+            const elements = document.querySelectorAll('.demo-box');
+            const output = document.getElementById('selection-output-3');
+            
+            output.textContent = `Found ${elements.length} elements with class "demo-box":\n`;
+            elements.forEach((el, index) => {
+                output.textContent += `${index}: "${el.textContent}"\n`;
+                el.style.border = '2px solid #4299e1';
+            });
+        }
+        
+        function querySelectSpecial() {
+            const element = document.querySelector('.demo-box[data-type="special"]');
+            const output = document.getElementById('selection-output-3');
+            
+            if (element) {
+                output.textContent = `Found special element with CSS selector:\n`;
+                output.textContent += `Text: "${element.textContent}"\n`;
+                output.textContent += `Data type: ${element.getAttribute('data-type')}`;
+                
+                element.style.backgroundColor = '#9f7aea';
+                element.style.color = 'white';
+            }
+        }
+        
+        // DOM Manipulation Section
+        function changeTextContent() {
+            const element = document.getElementById('manipulation-demo');
+            const counter = parseInt(element.getAttribute('data-counter')) + 1;
+            
+            element.textContent = `Text changed ${counter} times (textContent)`;
+            element.setAttribute('data-counter', counter);
+            
+            const output = document.getElementById('manipulation-output');
+            output.textContent = `Changed textContent to: "${element.textContent}"\n`;
+            output.textContent += `data-counter attribute: ${counter}`;
+        }
+        
+        function changeInnerHTML() {
+            const element = document.getElementById('manipulation-demo');
+            const counter = parseInt(element.getAttribute('data-counter')) + 1;
+            
+            element.innerHTML = `<strong>HTML changed ${counter} times</strong> <em>(innerHTML)</em>`;
+            element.setAttribute('data-counter', counter);
+            
+            const output = document.getElementById('manipulation-output');
+            output.textContent = `Changed innerHTML to include HTML tags\n`;
+            output.textContent += `New HTML: ${element.innerHTML}`;
+        }
+        
+        function toggleClass() {
+            const element = document.getElementById('manipulation-demo');
+            element.classList.toggle('highlight');
+            
+            const output = document.getElementById('manipulation-output');
+            output.textContent = `Toggled "highlight" class\n`;
+            output.textContent += `Element now has classes: ${element.className}`;
+        }
+        
+        function updateAttribute() {
+            const element = document.getElementById('manipulation-demo');
+            const current = parseInt(element.getAttribute('data-counter')) || 0;
+            const newValue = current + 5;
+            
+            element.setAttribute('data-counter', newValue);
+            
+            const output = document.getElementById('manipulation-output');
+            output.textContent = `Updated data-counter attribute from ${current} to ${newValue}\n`;
+            output.textContent += `Use getAttribute('data-counter'): ${element.getAttribute('data-counter')}`;
+        }
+        
+        let elementCounter = 1;
+        
+        function createNewElement() {
+            const container = document.getElementById('element-container');
+            const newElement = document.createElement('div');
+            
+            newElement.className = 'list-item';
+            newElement.textContent = `New Item ${elementCounter}`;
+            newElement.style.backgroundColor = '#c6f6d5';
+            newElement.style.margin = '5px';
+            newElement.style.padding = '10px';
+            newElement.style.borderRadius = '4px';
+            
+            container.appendChild(newElement);
+            elementCounter++;
+            
+            const output = document.getElementById('creation-output');
+            output.textContent = `Created new element with createElement() and appended with appendChild()`;
+        }
+        
+        function removeLastElement() {
+            const container = document.getElementById('element-container');
+            const children = container.children;
+            
+            if (children.length > 0) {
+                const lastChild = children[children.length - 1];
+                lastChild.remove();
+                
+                const output = document.getElementById('creation-output');
+                output.textContent = `Removed last element using remove() method`;
+            } else {
+                const output = document.getElementById('creation-output');
+                output.textContent = `No elements to remove!`;
+            }
+        }
+        
+        function cloneFirstElement() {
+            const container = document.getElementById('element-container');
+            const children = container.children;
+            
+            if (children.length > 0) {
+                const firstChild = children[0];
+                const cloned = firstChild.cloneNode(true);
+                cloned.textContent = `Cloned: ${cloned.textContent}`;
+                cloned.style.backgroundColor = '#bee3f8';
+                
+                container.appendChild(cloned);
+                
+                const output = document.getElementById('creation-output');
+                output.textContent = `Cloned first element using cloneNode(true)`;
+            }
+        }
+        
+        function clearAllElements() {
+            const container = document.getElementById('element-container');
+            
+            // Remove all children
+            while (container.firstChild) {
+                container.removeChild(container.firstChild);
+            }
+            
+            // Add back original
+            const original = document.createElement('div');
+            original.className = 'list-item';
+            original.textContent = 'Original Item';
+            container.appendChild(original);
+            
+            elementCounter = 1;
+            
+            const output = document.getElementById('creation-output');
+            output.textContent = `Cleared all elements and reset to initial state`;
+        }
+        
+        // CSS Manipulation Section
+        function changeColor() {
+            const element = document.getElementById('style-demo');
+            const colors = ['#f56565', '#48bb78', '#4299e1', '#9f7aea', '#ed8936'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            
+            element.style.color = randomColor;
+            element.style.backgroundColor = '#f7fafc';
+            element.style.padding = '20px';
+            element.style.borderRadius = '8px';
+            
+            const output = document.getElementById('style-output');
+            output.textContent = `Changed color to: ${randomColor}\n`;
+            output.textContent += `Using: element.style.color = '${randomColor}'`;
+        }
+        
+        function changeSize() {
+            const element = document.getElementById('style-demo');
+            const sizes = ['16px', '20px', '24px', '28px', '32px'];
+            const randomSize = sizes[Math.floor(Math.random() * sizes.length)];
+            
+            element.style.fontSize = randomSize;
+            element.style.fontWeight = 'bold';
+            
+            const output = document.getElementById('style-output');
+            output.textContent = `Changed font size to: ${randomSize}\n`;
+            output.textContent += `Using: element.style.fontSize = '${randomSize}'`;
+        }
+        
+        function rotateElement() {
+            const element = document.getElementById('style-demo');
+            const rotations = ['rotate(5deg)', 'rotate(-5deg)', 'rotate(10deg)', 'rotate(-10deg)', 'rotate(0deg)'];
+            const randomRotation = rotations[Math.floor(Math.random() * rotations.length)];
+            
+            element.style.transform = randomRotation;
+            element.style.transition = 'transform 0.3s ease';
+            
+            const output = document.getElementById('style-output');
+            output.textContent = `Applied transform: ${randomRotation}\n`;
+            output.textContent += `Using: element.style.transform = '${randomRotation}'`;
+        }
+        
+        function resetStyles() {
+            const element = document.getElementById('style-demo');
+            element.style = ''; // Clear all inline styles
+            
+            const output = document.getElementById('style-output');
+            output.textContent = `Reset all inline styles using element.style = ''`;
+        }
+        
+        // ClassList manipulation
+        function addClassDemo() {
+            const element = document.getElementById('class-demo');
+            element.classList.add('highlight');
+            
+            const output = document.getElementById('class-output');
+            output.textContent = `Added class 'highlight'\n`;
+            output.textContent += `Current classes: ${element.className}`;
+        }
+        
+        function removeClassDemo() {
+            const element = document.getElementById('class-demo');
+            element.classList.remove('highlight');
+            
+            const output = document.getElementById('class-output');
+            output.textContent = `Removed class 'highlight'\n`;
+            output.textContent += `Current classes: ${element.className}`;
+        }
+        
+        function toggleClassDemo() {
+            const element = document.getElementById('class-demo');
+            element.classList.toggle('rounded');
+            
+            const output = document.getElementById('class-output');
+            const hasClass = element.classList.contains('rounded');
+            output.textContent = `Toggled class 'rounded' - now ${hasClass ? 'has' : 'does not have'} the class\n`;
+            output.textContent += `Current classes: ${element.className}`;
+        }
+        
+        function addMultipleClasses() {
+            const element = document.getElementById('class-demo');
+            element.classList.add('shadow', 'border', 'padded');
+            
+            const output = document.getElementById('class-output');
+            output.textContent = `Added multiple classes: 'shadow', 'border', 'padded'\n`;
+            output.textContent += `Current classes: ${element.className}`;
+        }
+        
+        // Computed styles
+        function getComputedStyles() {
+            const element = document.getElementById('computed-demo');
+            const computed = window.getComputedStyle(element);
+            
+            const output = document.getElementById('computed-output');
+            output.textContent = `Computed styles for element:\n`;
+            output.textContent += `Color: ${computed.color}\n`;
+            output.textContent += `Font size: ${computed.fontSize}\n`;
+            output.textContent += `Background color: ${computed.backgroundColor}\n`;
+            output.textContent += `Margin: ${computed.margin}\n`;
+            output.textContent += `Padding: ${computed.padding}\n`;
+            output.textContent += `Display: ${computed.display}`;
+        }
+        
+        function getSpecificStyle() {
+            const element = document.getElementById('computed-demo');
+            const computed = window.getComputedStyle(element);
+            const fontSize = computed.getPropertyValue('font-size');
+            const fontWeight = computed.getPropertyValue('font-weight');
+            const fontFamily = computed.getPropertyValue('font-family');
+            
+            const output = document.getElementById('computed-output');
+            output.textContent = `Specific font properties:\n`;
+            output.textContent += `Font size: ${fontSize}\n`;
+            output.textContent += `Font weight: ${fontWeight}\n`;
+            output.textContent += `Font family: ${fontFamily}`;
+        }
+        
+        // Events Section
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set up event listeners for event demo
+            const eventButton = document.getElementById('event-button');
+            const eventInput = document.getElementById('event-input');
+            const eventDemo = document.getElementById('event-demo');
+            const eventOutput = document.getElementById('event-output');
+            
+            // Button click event
+            eventButton.addEventListener('click', function() {
+                eventOutput.textContent = `Button clicked at: ${new Date().toLocaleTimeString()}`;
+                eventDemo.style.backgroundColor = '#c6f6d5';
+                setTimeout(() => eventDemo.style.backgroundColor = '', 500);
+            });
+            
+            // Input events
+            eventInput.addEventListener('focus', function() {
+                eventOutput.textContent = 'Input field focused';
+                eventDemo.textContent = 'Input field is focused - start typing!';
+            });
+            
+            eventInput.addEventListener('blur', function() {
+                eventOutput.textContent = 'Input field lost focus';
+                eventDemo.textContent = 'Click, mouseover, or type in the input';
+            });
+            
+            eventInput.addEventListener('input', function(e) {
+                eventOutput.textContent = `Input value: "${e.target.value}"`;
+                eventDemo.textContent = `Typing: ${e.target.value || '...'}`;
+            });
+            
+            // Mouse events on demo area
+            eventDemo.addEventListener('mouseover', function() {
+                eventDemo.style.backgroundColor = '#bee3f8';
+            });
+            
+            eventDemo.addEventListener('mouseout', function() {
+                eventDemo.style.backgroundColor = '';
+            });
+        });
+        
+        // Event propagation demo
+        let propagationActive = false;
+        
+        function addPropagationListeners() {
+            if (propagationActive) return;
+            
+            const outer = document.getElementById('outer-box');
+            const inner = document.getElementById('inner-box');
+            const deep = document.getElementById('deep-box');
+            const output = document.getElementById('propagation-output');
+            
+            outer.addEventListener('click', function(e) {
+                output.textContent += `Outer box clicked (event phase: ${e.eventPhase})\n`;
+            });
+            
+            inner.addEventListener('click', function(e) {
+                output.textContent += `Inner box clicked (event phase: ${e.eventPhase})\n`;
+            });
+            
+            deep.addEventListener('click', function(e) {
+                output.textContent += `Deep box clicked (event phase: ${e.eventPhase})\n`;
+                output.textContent += '---\n';
+            });
+            
+            output.textContent = 'Event listeners added. Click boxes to see event propagation.\n';
+            output.textContent += '(Events bubble from inner to outer elements)\n---\n';
+            
+            propagationActive = true;
+        }
+        
+        function stopPropagationDemo() {
+            const deep = document.getElementById('deep-box');
+            const output = document.getElementById('propagation-output');
+            
+            // Add new listener that stops propagation
+            deep.addEventListener('click', function(e) {
+                e.stopPropagation();
+                output.textContent += 'Deep box clicked (propagation stopped)\n';
+                output.textContent += '---\n';
+            }, { once: true }); // Only fires once
+            
+            output.textContent += 'Added stopPropagation() to deep box (next click only)\n';
+        }
+        
+        function clearPropagationOutput() {
+            document.getElementById('propagation-output').textContent = '';
+        }
+        
+        // Forms Section
+        document.getElementById('demo-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const output = document.getElementById('form-output');
+            
+            // Get form values
+            const name = this.elements.name.value;
+            const email = this.elements.email.value;
+            const message = this.elements.message.value;
+            
+            // Simple validation
+            if (!name || !email) {
+                output.textContent = 'Please fill in required fields (name and email)';
+                output.style.color = '#f56565';
+                return;
+            }
+            
+            // Show success message
+            output.textContent = `Form submitted successfully!\n\n`;
+            output.textContent += `Name: ${name}\n`;
+            output.textContent += `Email: ${email}\n`;
+            output.textContent += `Message: ${message || '(empty)'}`;
+            output.style.color = '#48bb78';
+            
+            // Reset form after 3 seconds
+            setTimeout(() => {
+                this.reset();
+                output.textContent = 'Form has been reset. Submit again!';
+                output.style.color = '';
+            }, 3000);
+        });
+        
+        function getFormValues() {
+            const form = document.getElementById('demo-form');
+            const output = document.getElementById('form-output');
+            
+            // Using FormData API
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            output.textContent = 'Current form values:\n';
+            output.textContent += `Name: ${data.name || '(empty)'}\n`;
+            output.textContent += `Email: ${data.email || '(empty)'}\n`;
+            output.textContent += `Message: ${data.message || '(empty)'}`;
+            output.style.color = '';
+        }
+        
+        // Add CSS for class demo
+        const style = document.createElement('style');
+        style.textContent = `
+            .highlight {
+                background-color: #fefcbf !important;
+                border: 2px solid #d69e2e !important;
+            }
+            .rounded {
+                border-radius: 20px !important;
+            }
+            .shadow {
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            }
+            .border {
+                border: 2px solid #a0aec0 !important;
+            }
+            .padded {
+                padding: 30px !important;
+            }
+        `;
+        document.head.appendChild(style);
+        
+        // Initialize some demo elements with data
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial data-counter for manipulation demo
+            document.getElementById('manipulation-demo').setAttribute('data-counter', '0');
+            
+            // Log to console for learners
+            console.log('JavaScript with HTML & CSS Guide loaded!');
+            console.log('Try these in the console:');
+            console.log('1. document.querySelector(\'.demo-item\')');
+            console.log('2. document.getElementById(\'style-demo\').style.backgroundColor = \'yellow\'');
+            console.log('3. document.querySelectorAll(\'.demo-box\').forEach(el => console.log(el.textContent))');
+        });
+    </script>
+</body>
+</html>

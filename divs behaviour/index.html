@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styl.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+    <div class="card"><p>Learning</p></div>
+    <div class="card"><p>Learning</p></div>
+    <div class="card"><p>Learning</p></div>
+    </div>
+    <button id="btn">Click And See</button>
+    <script>
+
+     const button = document.querySelector('#btn');
+      const colors = [' white', 'black', 'orangered', 'lightblue','gold','indigo','violet','green','grey','brown','grey','wheat'];
+      let colorIndex = 0;
+
+      button.addEventListener('click', function () {
+
+        document.body.style.backgroundColor = colors[colorIndex];
+        colorIndex = (colorIndex + 1) % colors.length;
+      });
+    
+    </script>
+</body>
+
+</html>
