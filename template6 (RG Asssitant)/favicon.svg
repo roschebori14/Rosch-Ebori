@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10a37f;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d8a6a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- ChatGPT-style rounded square background -->
+  <rect x="2" y="2" width="28" height="28" rx="6" ry="6" fill="url(#grad)"/>
+  <!-- Chat bubble tail -->
+  <path d="M8 26 Q8 30 12 30 L16 30 L14 26 Z" fill="#0d8a6a"/>
+  <!-- RG text -->
+  <text x="16" y="21" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="white" text-anchor="middle">RG</text>
+</svg>
